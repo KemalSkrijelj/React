@@ -2,25 +2,26 @@ import { Avatar, Box, Button, Checkbox, CssBaseline, FormControlLabel, Grid, Tex
 
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
-
+import { useNavigate } from "react-router-dom";
+import {hardCodedUser} from '../dumyDB/index'
 export const Login = () => {
 
-
-  const hardCodedUser = {
-      username:'admin',
-      password:'admin'
-  }
 
   const [userInput, setUserInput] = useState({
       username:'',
       password:''
   })
 
-  const handleSubmit = () => {
-      // Treba nam kad kliknemo da se uloguje!
-      // NPR NEKI API POZIV ???
-      console.log(userInput,"ovo je state!");
 
+  let navigateToLoginPage = useNavigate()
+
+  const succesLogin = () => {
+    let path = '/login';
+    if(userInput.username === hardCodedUser.username && userInput.password === hardCodedUser.password){
+     navigateToLoginPage(path)  
+   }else {
+    console.log("los input")
+   }
   }
 
   const handleChangeInput = (name,event) => {
@@ -93,8 +94,9 @@ export const Login = () => {
             fullWidth
             variant="contained"
             color="primary"
-            onClick={handleSubmit}
+            onClick={succesLogin}
             // onClick = {handelLogin}
+          
           >
             Sign In
           </Button>
